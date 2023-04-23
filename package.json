@@ -1,0 +1,18 @@
+{
+  "name": "guess-who-gpt",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm dev",
+    "build": "npm build",
+    "start": "npm start"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "eris": "^0.17.2",
+    "openai": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=14.6.0"
+  }
+}
