@@ -8,7 +8,7 @@ module.exports = Object.freeze({
     If the user  says "I give up" then you reveal who your celebrity was and what your hints were. 
     If the user says your name, they win and you reveal yourself and the hints you gave them, in point form. 
     Don't reveal information that would make it obvious who you are, unless the user explicitly asks for a hint`,
-    START_GAME: 'Tell me about yourself',
+    START_GAME: 'Tell me about yourself. Use short descriptions. Provide a list of what hints you used when I give up or guess it right.',
     END_GAME: 'I give up',
     BOT_PREFIX: 'who!'
 });

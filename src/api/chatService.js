@@ -1,10 +1,10 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const { Configuration, OpenAIApi } = require("openai");
-require('dotenv').config();
+const express = require("express")
+const bodyParser = require("body-parser")
+// const cors = require("cors")
+// const helmet = require("helmet")
+// const morgan = require("morgan")
+const { Configuration, OpenAIApi } = require("openai")
+require('dotenv').config()
 const constants = require("../constants")
 
 const configuration = new Configuration({
@@ -15,11 +15,11 @@ const openai = new OpenAIApi(configuration)
 const port = process.env.PORT || "3000"
 
 const app = express()
-
-app.use(helmet())
 app.use(bodyParser.json())
-app.use(cors())
-app.use(morgan("combined"))
+
+// app.use(helmet())
+// app.use(cors())
+// app.use(morgan("combined"))
 
 app.post("/guess", async (req, res) => {
   if (!configuration.apiKey) {
@@ -32,28 +32,26 @@ app.post("/guess", async (req, res) => {
     return
   }
 
-  const { messages } = req.body;
+  const messages = req.body
 
   var messageList = [
-    {role: "system", content: constants.SYSTEM_SETTINGS}
+    {"role": "system", "content": constants.SYSTEM_SETTINGS},
+    ...messages
   ]
 
   try {
-
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [
-        messageList,
-        ...messages
-      ],
+      messages: messageList,
+      temperature: 0,
+      top_p: 1,
+      frequency_penalty: 1,
+      max_tokens: 512
     })
 
-    console.log(completion.data.choices[0])
-
-    res.status(200).json({ result: completion.data.choices[0].text })
+    res.status(200).json({ data: completion.data.choices[0].message.content })
 
   } catch (error) {
-
     if (error.response) {
       res.status(error.response.status).json(error.response.data)
     } else {
