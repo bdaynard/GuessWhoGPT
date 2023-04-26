@@ -39,14 +39,16 @@ app.post("/guess", async (req, res) => {
     ...messages
   ]
 
+  console.log(messageList)
+
   try {
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: messageList,
       temperature: 0,
       top_p: 1,
-      frequency_penalty: 1,
-      max_tokens: 512
+      frequency_penalty: 1.5,
+      max_tokens: 150
     })
 
     res.status(200).json({ data: completion.data.choices[0].message.content })
